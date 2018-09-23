@@ -2,9 +2,11 @@
   "name": "gerardkok-ejbca",
   "version": "0.1.0",
   "author": "gerardkok",
-  "summary": "",
+  "summary": "Install and configure EJBCA",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/gerardkok/puppet-ejbca.git",
+  "project_page": "https://github.com/gerardkok/puppet-ejbca",
+  "issues_url": "https://github.com/gerardkok/puppet-ejbca/issues",
   "dependencies": [
     {
       "name": "biemond/wildfly",
