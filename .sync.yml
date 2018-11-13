@@ -1,6 +1,4 @@
 ---
-mock_with: ':rspec'
-
 .travis.yml:
   delete: true
 
@@ -14,6 +12,9 @@ spec/default_facts.yml:
   extra_facts:
     initsystem: systemd
     root_home: /root
+
+spec/spec_helper.rb:
+  mock_with: ':rspec'
 
 .rubocop.yml:
   default_configs:
