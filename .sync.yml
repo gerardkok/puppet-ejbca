@@ -1,0 +1,21 @@
+---
+mock_with: ':rspec'
+
+.travis.yml:
+  delete: true
+
+appveyor.yml:
+  delete: true
+
+.gitlab-ci.yml:
+  unmanaged: true
+
+spec/default_facts.yml:
+  extra_facts:
+    initsystem: systemd
+    root_home: /root
+
+.rubocop.yml:
+  default_configs:
+    inherit_from: .rubocop_todo.yml
+    
