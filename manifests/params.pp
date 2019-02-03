@@ -23,6 +23,7 @@ class ejbca::params {
   $api_client_cert_path = "${ejbca_install_dir}/p12/${api_client_cert_filename}.p12"
   $api_client_cert_password = $superadmin_password
   $vhost_name = $facts['fqdn']
+  $java_home = '/usr/lib/jvm/java-8-openjdk-amd64'
   $java_xms = '2048m'
   $java_xmx = '2048m'
   $java_opts = '-Djava.net.preferIPv4Stack=true'

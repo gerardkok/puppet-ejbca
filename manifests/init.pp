@@ -43,6 +43,8 @@
 #   Password protecting the certificate that grants access to the EJBCA API.
 # @param vhost_name
 #   Name of the virtual host that EJBCA will use.
+# @param java_home
+#   Absolute path to JAVA_HOME
 # @param java_xms
 #   Value of the -Xms Java parameter
 # @param java_xmx
@@ -70,6 +72,7 @@ class ejbca (
   Stdlib::Absolutepath $api_client_cert_path            = $::ejbca::params::api_client_cert_path,
   String $api_client_cert_password                      = $::ejbca::params::api_client_cert_password,
   Stdlib::Fqdn $vhost_name                              = $::ejbca::params::vhost_name,
+  Stdlib::Absolutepath $java_home                       = $::ejbca::params::java_home,
   String $java_xms                                      = $::ejbca::params::java_xms,
   String $java_xmx                                      = $::ejbca::params::java_xmx,
   String $java_opts                                     = $::ejbca::params::java_opts
