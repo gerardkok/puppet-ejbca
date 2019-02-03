@@ -204,6 +204,14 @@ Name of the virtual host that EJBCA will use.
 
 Default value: $::ejbca::params::vhost_name
 
+##### `java_home`
+
+Data type: `Stdlib::Absolutepath`
+
+Absolute path to JAVA_HOME
+
+Default value: $::ejbca::params::java_home
+
 ##### `java_xms`
 
 Data type: `String`

@@ -30,6 +30,8 @@ EJBCA stores its data in a database (see the file `conf/database.properties.samp
 
 Previous versions of EJBCA required an instance with 2 CPUs. I can't find that requirement anymore, so I'm not sure it still holds. However, if you're having trouble installing EJBCA using this module, consider trying installing it on a bigger instances, with (at least) 2 CPUs.
 
+A Java version that's compatible with EJBCA's version has to be installed before EJBCA can be installed.
+
 ### Beginning with ejbca
 
 Minimal usage:
