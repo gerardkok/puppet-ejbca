@@ -11,9 +11,6 @@ class ejbca::params {
   $ejbca_basename = basename($ejbca_source, '.zip')
   $ejbca_install_dir = "${home}/${ejbca_basename}"
   $database_driver = 'h2'
-  $manage_database = true
-  $mysql_root_password = 'root'
-  $mysql_server_override_options = {}
   $db = 'ejbca'
   $db_user = 'ejbca'
   $db_password = 'ejbca'

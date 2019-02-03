@@ -19,12 +19,6 @@
 #   The name of the database driver EJBCA will use.
 # @param database_driver_params
 #   The parameters required to add the [database driver](#database_driver) to Wildfly, as a hash.
-# @param manage_database
-#   Whether to manage the database server.
-# @param mysql_root_password
-#   When using MySQL or MariaDB, and [manage_database](#manage_database) is true, the MySQL or MariaDB root password.
-# @param mysql_server_override_options
-#   When using MySQL or MariaDB, and [manage_database](#manage_database) is true, a hash of MySQL or MariaDB server options.
 # @param db
 #   The name of the EJBCA database.
 # @param db_user
@@ -64,9 +58,6 @@ class ejbca (
   Stdlib::Absolutepath $ejbca_install_dir               = $::ejbca::params::ejbca_install_dir,
   Ejbca::Database_driver $database_driver               = $::ejbca::params::database_driver,
   Ejbca::Database_driver_params $database_driver_params = ejbca::database_driver_params($database_driver),
-  Boolean $manage_database                              = $::ejbca::params::manage_database,
-  String $mysql_root_password                           = $::ejbca::params::mysql_root_password,
-  Hash $mysql_server_override_options                   = $::ejbca::params::mysql_server_override_options,
   String $db                                            = $::ejbca::params::db,
   String $db_user                                       = $::ejbca::params::db_user,
   String $db_password                                   = $::ejbca::params::db_password,
@@ -86,14 +77,12 @@ class ejbca (
   contain ejbca::wildfly::install
   contain ejbca::wildfly::config
   contain ejbca::install
-  contain ejbca::database
   contain ejbca::config
   contain ejbca::api_config
 
   Class['ejbca::install']
   -> Class['ejbca::wildfly::install']
   -> Class['ejbca::wildfly::config']
-  -> Class['ejbca::database']
   -> Class['ejbca::config']
   -> Class['ejbca::api_config']
 }
