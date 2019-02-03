@@ -22,13 +22,15 @@ The module manages both the installation and configuration EJBCA, and provides a
 
 ### What ejbca affects
 
-EJBCA runs on a JEE5 compliant Java application server (see https://www.ejbca.org/docs/Application_Servers.html). This module uses the [biemond/wildfly](https://forge.puppet.com/biemond/wildfly) module, which means that the choice is limited to JBoss or Wildfly.
+EJBCA runs on a JEE5 compliant Java application server (see https://www.ejbca.org/docs/Application_Servers.html). This module uses the [biemond/wildfly](https://forge.puppet.com/biemond/wildfly) module, which limits the choice to JBoss or Wildfly.
 
-EJBCA stores its data in a database (see the file `conf/database.properties.sample` from the distribution for a list). To simplify configuration of the database driver in the application server, this module can handle installation and configuration of the database service, but then the choice is limited to 'H2' (the EJBCA default), 'MariaDB', 'MySQL' or 'PostgresQL'. You can choose to use a different database, or manage the database yourself.
+EJBCA stores its data in a database (see the file `conf/database.properties.sample` from the distribution for a list). This module can handle installation of the database driver, but does not manage the database.
 
 ### Setup Requirements
 
 Previous versions of EJBCA required an instance with 2 CPUs. I can't find that requirement anymore, so I'm not sure it still holds. However, if you're having trouble installing EJBCA using this module, consider trying installing it on a bigger instances, with (at least) 2 CPUs.
+
+A Java version that's compatible with EJBCA's version has to be installed before EJBCA can be installed.
 
 ### Beginning with ejbca
 
@@ -44,7 +46,7 @@ This installs the current open-source version of EJBCA with the default configur
 
 ## Usage
 
-If you don't want this module to manage the database, set `manage_database` to false.
+This module does not manage the database.
 
 ## Reference
 

@@ -8,9 +8,6 @@
 * [`ejbca`](#ejbca): Installs and configures EJBCA
 * [`ejbca::api_config`](#ejbcaapi_config): Configure access to the EJBCA API
 * [`ejbca::config`](#ejbcaconfig): Configure EJBCA
-* [`ejbca::database`](#ejbcadatabase): Install database
-* [`ejbca::database::mysql`](#ejbcadatabasemysql): Install MySQL or MariaDB, and create a database
-* [`ejbca::database::postgresql`](#ejbcadatabasepostgresql): Install PostgresQL and create a database
 * [`ejbca::install`](#ejbcainstall): Install EJBCA
 * [`ejbca::params`](#ejbcaparams): Default parameter values
 * [`ejbca::wildfly::config`](#ejbcawildflyconfig): Configure Wildfly
@@ -111,30 +108,6 @@ The parameters required to add the [database driver](#database_driver) to Wildfl
 
 Default value: ejbca::database_driver_params($database_driver)
 
-##### `manage_database`
-
-Data type: `Boolean`
-
-Whether to manage the database server.
-
-Default value: $::ejbca::params::manage_database
-
-##### `mysql_root_password`
-
-Data type: `String`
-
-When using MySQL or MariaDB, and [manage_database](#manage_database) is true, the MySQL or MariaDB root password.
-
-Default value: $::ejbca::params::mysql_root_password
-
-##### `mysql_server_override_options`
-
-Data type: `Hash`
-
-When using MySQL or MariaDB, and [manage_database](#manage_database) is true, a hash of MySQL or MariaDB server options.
-
-Default value: $::ejbca::params::mysql_server_override_options
-
 ##### `db`
 
 Data type: `String`
@@ -231,6 +204,14 @@ Name of the virtual host that EJBCA will use.
 
 Default value: $::ejbca::params::vhost_name
 
+##### `java_home`
+
+Data type: `Stdlib::Absolutepath`
+
+Absolute path to JAVA_HOME
+
+Default value: $::ejbca::params::java_home
+
 ##### `java_xms`
 
 Data type: `String`
@@ -277,42 +258,6 @@ Configure EJBCA
 
 ```puppet
 include ejbca::config
-```
-
-### ejbca::database
-
-Install database
-
-#### Examples
-
-##### 
-
-```puppet
-include ejbca::database
-```
-
-### ejbca::database::mysql
-
-Install MySQL or MariaDB, and create a database
-
-#### Examples
-
-##### 
-
-```puppet
-include ejbca::database::mysql
-```
-
-### ejbca::database::postgresql
-
-Install PostgresQL and create a database
-
-#### Examples
-
-##### 
-
-```puppet
-include ejbca::database::postgresql
 ```
 
 ### ejbca::install
