@@ -12,7 +12,7 @@ describe Puppet::Type.type(:ejbca_end_entity).provider(:ejbcaws) do
     let(:provider) { resource.provider }
 
     it 'does not exist' do
-      provider.expects(:user).returns nil
+      allow(provider).to receive(:user).and_return(nil)
 
       expect(provider.exists?).to be false
     end
@@ -29,12 +29,12 @@ describe Puppet::Type.type(:ejbca_end_entity).provider(:ejbcaws) do
     let(:provider) { resource.provider }
 
     it 'exists' do
-      provider.expects(:user).returns(status: :generated)
+      allow(provider).to receive(:user).and_return(status: :generated)
 
       expect(provider.exists?).to be true
     end
     it 'is generated' do
-      provider.expects(:user).twice.returns(status: :generated)
+      allow(provider).to receive(:user).and_return(status: :generated)
 
       expect(provider.generated?).to be true
     end
