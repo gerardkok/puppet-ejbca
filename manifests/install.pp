@@ -43,7 +43,7 @@ class ejbca::install {
   }
   # https://jira.primekey.se/browse/ECA-8667
   -> file_line {
-    'disable default building of cesecore-p11':
+    'sun.security.pkcs11.P11Key with OpenJDK':
       line  => '            final long keyID = sunP11Key.getKeyID();',
       match => '^\s*final long keyID = sunP11Key.keyID;.*$',
       path  => "${ejbca::ejbca_install_dir}/modules/cesecore-p11/src/sun/security/pkcs11/CESeCoreUtils.java";
