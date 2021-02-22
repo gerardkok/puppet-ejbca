@@ -39,6 +39,7 @@ class ejbca::config {
       user    => $ejbca::user,
       path    => '/usr/bin:/bin',
       cwd     => $ejbca::ejbca_install_dir,
+      timeout => 0,
       creates => '/opt/wildfly/standalone/deployments/ejbca.ear.deployed';
   }
   -> exec {
