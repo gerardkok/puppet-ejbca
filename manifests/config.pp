@@ -37,21 +37,21 @@ class ejbca::config {
   -> exec {
     'ant deploy && while [ ! -f /opt/wildfly/standalone/deployments/ejbca.ear.deployed ]; do sleep 1; done':
       user    => $ejbca::user,
-      path    => '/bin:/usr/bin',
+      path    => '/usr/bin:/bin',
       cwd     => $ejbca::ejbca_install_dir,
       creates => '/opt/wildfly/standalone/deployments/ejbca.ear.deployed';
   }
   -> exec {
     'ant runinstall':
       user    => $ejbca::user,
-      path    => '/bin:/usr/bin',
+      path    => '/usr/bin:/bin',
       cwd     => $ejbca::ejbca_install_dir,
       creates => "${ejbca::ejbca_install_dir}/p12/superadmin.p12";
   }
   -> exec {
     'ant deploy-keystore':
       user    => $ejbca::user,
-      path    => '/bin:/usr/bin',
+      path    => '/usr/bin:/bin',
       cwd     => $ejbca::ejbca_install_dir,
       creates => '/opt/wildfly/standalone/configuration/keystore/keystore.jks';
   }
