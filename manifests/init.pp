@@ -13,6 +13,8 @@
 #   The home directory of [user](#user), as an absolute path.
 # @param ejbca_source
 #   The url to download the EJBCA source from.
+# @param ejbca_basename
+#   The basename of the source, without extension
 # @param ejbca_install_dir
 #   The absolute path to the directory the EJBCA source is unpacked to.
 # @param database_driver
@@ -37,6 +39,8 @@
 #   CN of the EJBCA SuperAdmin end entity.
 # @param superadmin_password
 #   Password for the EJBCA SuperAdmin end entity.
+# @param api_client_cert_filename
+#   The filename of the certificate that grants access to the EJBCA API.
 # @param api_client_cert_path
 #   Absolute path to a certificate that grants access to the EJBCA API.
 # @param api_client_cert_password

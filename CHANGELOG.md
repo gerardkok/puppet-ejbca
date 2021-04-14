@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.2.0
+
+- support for EJBCA 6.15
+
 ## Release 0.1.2 - 2020-04-05
 
 - updated to PDK 1.17
