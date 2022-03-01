@@ -13,7 +13,7 @@ function ejbca::database_driver_params(Ejbca::Database_driver $driver) >> Ejbca:
       {
         'database_name'                   => 'mysql',
         'driver_module_name'              => 'com.mysql',
-        'driver_module_source'            => 'https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.48/mysql-connector-java-5.1.48.jar',
+        'driver_module_source'            => 'https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar',
         'driver_name'                     => 'com.mysql.jdbc.Driver',
         'driver_xa_datasource_class_name' => 'com.mysql.jdbc.jdbc2.optional.MysqlXADataSource'
       }
