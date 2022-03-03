@@ -55,6 +55,12 @@
 #   Value of the -Xmx Java parameter
 # @param java_opts
 #   Additional options to use with Java.
+# @param add_datasource
+#   Whether to add the EjbcaDS datasource
+# @param wildfly_reload_retries
+#   The number of retries to check if wildfly is available after a reload
+# @param wildfly_reload_wait
+#   The delay in seconds between consecutive checks if wildfly is available after a reload
 class ejbca (
   String $wildfly_version                               = '10.1.0',
   String $user                                          = 'ejbca',
