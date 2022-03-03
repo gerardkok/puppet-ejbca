@@ -1,1 +1,1 @@
-type Ejbca::Database_driver = Enum['mariadb', 'mysql', 'postgresql', 'h2']
+type Ejbca::Database_driver = Enum['mariadb', 'mysql5', 'mysql8', 'postgresql', 'h2']

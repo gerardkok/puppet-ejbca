@@ -35,12 +35,16 @@ class ejbca::config {
       content => epp('ejbca/install.properties');
   }
   -> exec {
-    'ant deploy && while [ ! -f /opt/wildfly/standalone/deployments/ejbca.ear.deployed ]; do sleep 1; done':
+    'ant clean build':
       user    => $ejbca::user,
       path    => '/usr/bin:/bin',
       cwd     => $ejbca::ejbca_install_dir,
       timeout => 0,
-      creates => '/opt/wildfly/standalone/deployments/ejbca.ear.deployed';
+      creates => "${ejbca::ejbca_install_dir}/dist/ejbca.ear";
+  }
+  -> wildfly::deployment {
+    'ejbca.ear':
+      source => "file://${ejbca::ejbca_install_dir}/dist/ejbca.ear";
   }
   -> exec {
     'ant runinstall':
@@ -75,7 +79,9 @@ class ejbca::config {
       };
   }
   ~> wildfly::reload {
-    'reload after adding SSLRealm': ;
+    'reload after adding SSLRealm':
+      retries => $ejbca::wildfly_reload_retries,
+      wait    => $ejbca::wildfly_reload_wait;
   }
   -> wildfly::resource {
     '/subsystem=undertow/server=default-server/https-listener=httpspriv':
@@ -100,6 +106,8 @@ class ejbca::config {
       };
   }
   ~> wildfly::reload {
-    'reload after adding listeners': ;
+    'reload after adding listeners':
+      retries => $ejbca::wildfly_reload_retries,
+      wait    => $ejbca::wildfly_reload_wait;
   }
 }
