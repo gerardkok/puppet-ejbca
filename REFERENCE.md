@@ -10,7 +10,6 @@
 * [`ejbca::api_config`](#ejbcaapi_config): Configure access to the EJBCA API
 * [`ejbca::config`](#ejbcaconfig): Configure EJBCA
 * [`ejbca::install`](#ejbcainstall): Install EJBCA
-* [`ejbca::params`](#ejbcaparams): Default parameter values
 * [`ejbca::wildfly::config`](#ejbcawildflyconfig): Configure Wildfly
 * [`ejbca::wildfly::install`](#ejbcawildflyinstall): Install Wildfly
 
@@ -76,6 +75,9 @@ The following parameters are available in the `ejbca` class:
 * [`java_xms`](#java_xms)
 * [`java_xmx`](#java_xmx)
 * [`java_opts`](#java_opts)
+* [`add_datasource`](#add_datasource)
+* [`wildfly_reload_retries`](#wildfly_reload_retries)
+* [`wildfly_reload_wait`](#wildfly_reload_wait)
 
 ##### <a name="wildfly_version"></a>`wildfly_version`
 
@@ -83,7 +85,7 @@ Data type: `String`
 
 The version of Wildfly to use.
 
-Default value: `$::ejbca::params::wildfly_version`
+Default value: `'10.1.0'`
 
 ##### <a name="user"></a>`user`
 
@@ -91,7 +93,7 @@ Data type: `String`
 
 The user Wildfly runs as.
 
-Default value: `$::ejbca::params::user`
+Default value: `'ejbca'`
 
 ##### <a name="group"></a>`group`
 
@@ -99,7 +101,7 @@ Data type: `String`
 
 The group Wildfly runs as.
 
-Default value: `$::ejbca::params::group`
+Default value: `'ejbca'`
 
 ##### <a name="home"></a>`home`
 
@@ -115,7 +117,7 @@ Data type: `Stdlib::Httpurl`
 
 The url to download the EJBCA source from.
 
-Default value: `$::ejbca::params::ejbca_source`
+Default value: `'https://sourceforge.net/projects/ejbca/files/ejbca6/ejbca_6_15_2_6/ejbca_ce_6_15_2_6.zip'`
 
 ##### <a name="ejbca_basename"></a>`ejbca_basename`
 
@@ -139,7 +141,7 @@ Data type: `Ejbca::Database_driver`
 
 The name of the database driver EJBCA will use.
 
-Default value: `$::ejbca::params::database_driver`
+Default value: `'h2'`
 
 ##### <a name="database_driver_params"></a>`database_driver_params`
 
@@ -155,7 +157,7 @@ Data type: `String`
 
 The name of the EJBCA database.
 
-Default value: `$::ejbca::params::db`
+Default value: `'ejbca'`
 
 ##### <a name="db_user"></a>`db_user`
 
@@ -163,7 +165,7 @@ Data type: `String`
 
 The database user to access the EJBCA db.
 
-Default value: `$::ejbca::params::db_user`
+Default value: `'ejbca'`
 
 ##### <a name="db_password"></a>`db_password`
 
@@ -171,7 +173,7 @@ Data type: `String`
 
 The password for the [database user](#db_user).
 
-Default value: `$::ejbca::params::db_password`
+Default value: `'ejbca'`
 
 ##### <a name="database_url"></a>`database_url`
 
@@ -187,7 +189,7 @@ Data type: `String`
 
 The password protecting the Java keystore.
 
-Default value: `$::ejbca::params::keystore_password`
+Default value: `'serverpwd'`
 
 ##### <a name="organization"></a>`organization`
 
@@ -195,7 +197,7 @@ Data type: `String`
 
 Your organization.
 
-Default value: `$::ejbca::params::organization`
+Default value: `'EJBCA Sample'`
 
 ##### <a name="country"></a>`country`
 
@@ -203,7 +205,7 @@ Data type: `String`
 
 Your country.
 
-Default value: `$::ejbca::params::country`
+Default value: `'SE'`
 
 ##### <a name="superadmin_cn"></a>`superadmin_cn`
 
@@ -211,7 +213,7 @@ Data type: `String`
 
 CN of the EJBCA SuperAdmin end entity.
 
-Default value: `$::ejbca::params::superadmin_cn`
+Default value: `'SuperAdmin'`
 
 ##### <a name="superadmin_password"></a>`superadmin_password`
 
@@ -219,7 +221,7 @@ Data type: `String`
 
 Password for the EJBCA SuperAdmin end entity.
 
-Default value: `$::ejbca::params::superadmin_password`
+Default value: `'ejbca'`
 
 ##### <a name="api_client_cert_filename"></a>`api_client_cert_filename`
 
@@ -243,7 +245,7 @@ Data type: `String`
 
 Password protecting the certificate that grants access to the EJBCA API.
 
-Default value: `$superadmin_password`
+Default value: `'ejbca'`
 
 ##### <a name="vhost_name"></a>`vhost_name`
 
@@ -259,7 +261,7 @@ Data type: `Stdlib::Absolutepath`
 
 Absolute path to JAVA_HOME
 
-Default value: `$::ejbca::params::java_home`
+Default value: `'/usr/lib/jvm/java-8-openjdk-amd64'`
 
 ##### <a name="java_xms"></a>`java_xms`
 
@@ -267,7 +269,7 @@ Data type: `String`
 
 Value of the -Xms Java parameter
 
-Default value: `$::ejbca::params::java_xms`
+Default value: `'2048m'`
 
 ##### <a name="java_xmx"></a>`java_xmx`
 
@@ -275,7 +277,7 @@ Data type: `String`
 
 Value of the -Xmx Java parameter
 
-Default value: `$::ejbca::params::java_xmx`
+Default value: `'2048m'`
 
 ##### <a name="java_opts"></a>`java_opts`
 
@@ -283,7 +285,31 @@ Data type: `String`
 
 Additional options to use with Java.
 
-Default value: `$::ejbca::params::java_opts`
+Default value: `'-Djava.net.preferIPv4Stack=true'`
+
+##### <a name="add_datasource"></a>`add_datasource`
+
+Data type: `Boolean`
+
+Whether to add the EjbcaDS datasource
+
+Default value: ``false``
+
+##### <a name="wildfly_reload_retries"></a>`wildfly_reload_retries`
+
+Data type: `Integer`
+
+The number of retries to check if wildfly is available after a reload
+
+Default value: `4`
+
+##### <a name="wildfly_reload_wait"></a>`wildfly_reload_wait`
+
+Data type: `Integer`
+
+The delay in seconds between consecutive checks if wildfly is available after a reload
+
+Default value: `30`
 
 ### <a name="ejbcaapi_config"></a>`ejbca::api_config`
 
@@ -319,18 +345,6 @@ Install EJBCA
 
 ```puppet
 include ejbca::install
-```
-
-### <a name="ejbcaparams"></a>`ejbca::params`
-
-Default parameter values
-
-#### Examples
-
-##### 
-
-```puppet
-include ejbca::params
 ```
 
 ### <a name="ejbcawildflyconfig"></a>`ejbca::wildfly::config`
@@ -542,7 +556,7 @@ The Ejbca::Database_driver data type.
 Alias of
 
 ```puppet
-Enum['mariadb', 'mysql', 'postgresql', 'h2']
+Enum['mariadb', 'mysql5', 'mysql8', 'postgresql', 'h2']
 ```
 
 ### <a name="ejbcadatabase_driver_params"></a>`Ejbca::Database_driver_params`

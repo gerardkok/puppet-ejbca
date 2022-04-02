@@ -55,34 +55,43 @@
 #   Value of the -Xmx Java parameter
 # @param java_opts
 #   Additional options to use with Java.
+# @param add_datasource
+#   Whether to add the EjbcaDS datasource
+# @param wildfly_reload_retries
+#   The number of retries to check if wildfly is available after a reload
+# @param wildfly_reload_wait
+#   The delay in seconds between consecutive checks if wildfly is available after a reload
 class ejbca (
-  String $wildfly_version                               = $::ejbca::params::wildfly_version,
-  String $user                                          = $::ejbca::params::user,
-  String $group                                         = $::ejbca::params::group,
+  String $wildfly_version                               = '10.1.0',
+  String $user                                          = 'ejbca',
+  String $group                                         = 'ejbca',
   Stdlib::Absolutepath $home                            = "/home/${user}",
-  Stdlib::Httpurl $ejbca_source                         = $::ejbca::params::ejbca_source,
+  Stdlib::Httpurl $ejbca_source                         = 'https://sourceforge.net/projects/ejbca/files/ejbca6/ejbca_6_15_2_6/ejbca_ce_6_15_2_6.zip',
   String $ejbca_basename                                = basename($ejbca_source, '.zip'),
   Stdlib::Absolutepath $ejbca_install_dir               = "${home}/${ejbca_basename}",
-  Ejbca::Database_driver $database_driver               = $::ejbca::params::database_driver,
+  Ejbca::Database_driver $database_driver               = 'h2',
   Ejbca::Database_driver_params $database_driver_params = ejbca::database_driver_params($database_driver),
-  String $db                                            = $::ejbca::params::db,
-  String $db_user                                       = $::ejbca::params::db_user,
-  String $db_password                                   = $::ejbca::params::db_password,
+  String $db                                            = 'ejbca',
+  String $db_user                                       = 'ejbca',
+  String $db_password                                   = 'ejbca',
   String $database_url                                  = ejbca::database_url($database_driver, $db),
-  String $keystore_password                             = $::ejbca::params::keystore_password,
-  String $organization                                  = $::ejbca::params::organization,
-  String $country                                       = $::ejbca::params::country,
-  String $superadmin_cn                                 = $::ejbca::params::superadmin_cn,
-  String $superadmin_password                           = $::ejbca::params::superadmin_password,
+  String $keystore_password                             = 'serverpwd',
+  String $organization                                  = 'EJBCA Sample',
+  String $country                                       = 'SE',
+  String $superadmin_cn                                 = 'SuperAdmin',
+  String $superadmin_password                           = 'ejbca',
   String $api_client_cert_filename                      = downcase($superadmin_cn),
   Stdlib::Absolutepath $api_client_cert_path            = "${ejbca_install_dir}/p12/${api_client_cert_filename}.p12",
-  String $api_client_cert_password                      = $superadmin_password,
+  String $api_client_cert_password                      = 'ejbca',
   Stdlib::Fqdn $vhost_name                              = $facts['fqdn'],
-  Stdlib::Absolutepath $java_home                       = $::ejbca::params::java_home,
-  String $java_xms                                      = $::ejbca::params::java_xms,
-  String $java_xmx                                      = $::ejbca::params::java_xmx,
-  String $java_opts                                     = $::ejbca::params::java_opts
-) inherits ::ejbca::params {
+  Stdlib::Absolutepath $java_home                       = '/usr/lib/jvm/java-8-openjdk-amd64',
+  String $java_xms                                      = '2048m',
+  String $java_xmx                                      = '2048m',
+  String $java_opts                                     = '-Djava.net.preferIPv4Stack=true',
+  Boolean $add_datasource                               = false,
+  Integer $wildfly_reload_retries                       = 4,
+  Integer $wildfly_reload_wait                          = 30
+) {
   contain ejbca::wildfly::install
   contain ejbca::wildfly::config
   contain ejbca::install

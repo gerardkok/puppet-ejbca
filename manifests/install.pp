@@ -31,7 +31,6 @@ class ejbca::install {
   }
   -> archive {
     "/var/cache/${ejbca::ejbca_basename}.zip":
-      provider     => 'wget',
       source       => $ejbca::ejbca_source,
       extract      => true,
       extract_path => $ejbca::home,
